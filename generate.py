@@ -2,7 +2,7 @@ import sys
 from moviepy.editor import CompositeVideoClip, concatenate_videoclips, ImageClip, VideoFileClip, ColorClip
 
 
-minisPerSide = 8
+minisPerSide = 4
 miniCount = minisPerSide*minisPerSide
 
 WIDTH = 0
@@ -69,9 +69,12 @@ def main(originalPath):
 
 
 if __name__ == "__main__":
+    import time
     args = sys.argv[1:]
     if len(args) != 1:
         print(f"Expected one argument got {len(args)}, {args}")
         exit(1)
     else:
+        start_time = time.time()
         main(args[0])
+        print("--- %s seconds ---" % (time.time() - start_time))
