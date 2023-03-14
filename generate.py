@@ -2,7 +2,7 @@ import sys
 from moviepy.editor import CompositeVideoClip, concatenate_videoclips, ImageClip, VideoFileClip, ColorClip
 
 
-minisPerSide = 4
+minisPerSide = 8
 miniCount = minisPerSide*minisPerSide
 
 WIDTH = 0
@@ -22,12 +22,24 @@ def main(originalPath):
     base = ColorClip((extendeWidth, fullHeight),
                      color=[0, 0, 255, 128], duration=miniDuration)
 
+    def motion(i, j):
+        forward = j % 2 == 0
+        y = j*miniHeight
+        if forward:
+            print("motion(%s,%s) %d->%d " %
+                  (i, j, miniWidth*i, miniWidth*(i+1)))
+            return lambda t: (miniWidth*(i+t/miniDuration), y)
+        else:
+            print("motion(%s,%s) %d->%d " %
+                  (i, j, extendeWidth - miniWidth*(i+1), extendeWidth - miniWidth*(i+2)))
+            return lambda t: (extendeWidth - miniWidth*(i+t/miniDuration+1), y)
+
     def mini(j, i):
         k = j*minisPerSide + i
         return (original
                 .subclip(k*miniDuration, (k+1)*miniDuration)
                 .resize((miniWidth, miniHeight))
-                .set_position(lambda t: (miniWidth*(i+t/miniDuration), j*miniHeight)))
+                .set_position(motion(i, j)))
 
     minis = [mini(j, i)
              for j in range(minisPerSide)
@@ -38,7 +50,7 @@ def main(originalPath):
         return (original
                 .subclip(k*miniDuration, (k+1)*miniDuration)
                 .resize((miniWidth, miniHeight))
-                .set_position(lambda t: (miniWidth*(t/miniDuration-1), j*miniHeight)))
+                .set_position(motion(-1, j)))
 
     lefts = [left(j)
              for j in range(1, minisPerSide)]
@@ -48,7 +60,7 @@ def main(originalPath):
         return (original
                 .subclip(k*miniDuration, (k+1)*miniDuration)
                 .resize((miniWidth, miniHeight))
-                .set_position(lambda t: (miniWidth*(minisPerSide+t/miniDuration), j*miniHeight)))
+                .set_position(motion(minisPerSide, j)))
 
     rights = [right(j)
               for j in range(minisPerSide-1)]
@@ -56,11 +68,11 @@ def main(originalPath):
     leading = (original
                .to_ImageClip(0, duration=miniDuration)
                .resize((miniWidth, miniHeight))
-               .set_position(lambda t: (miniWidth*(t/miniDuration-1), 0)))
+               .set_position(motion(-1, 0)))
     trailing = (original
                 .to_ImageClip(original.duration - 1, duration=miniDuration)
                 .resize((miniWidth, miniHeight))
-                .set_position(lambda t: (miniWidth*(minisPerSide+t/miniDuration), (minisPerSide-1)*miniHeight)))
+                .set_position(motion(minisPerSide, minisPerSide-1)))
 
     output = CompositeVideoClip(
         minis+lefts+rights+[leading, trailing], (extendeWidth, fullHeight))
