@@ -26,12 +26,8 @@ def main(originalPath):
         forward = j % 2 == 0
         y = j*miniHeight
         if forward:
-            print("motion(%s,%s) %d->%d " %
-                  (i, j, miniWidth*i, miniWidth*(i+1)))
             return lambda t: (miniWidth*(i+t/miniDuration), y)
         else:
-            print("motion(%s,%s) %d->%d " %
-                  (i, j, extendeWidth - miniWidth*(i+1), extendeWidth - miniWidth*(i+2)))
             return lambda t: (extendeWidth - miniWidth*(i+t/miniDuration+1), y)
 
     def mini(j, i):
@@ -77,6 +73,7 @@ def main(originalPath):
     output = CompositeVideoClip(
         minis+lefts+rights+[leading, trailing], (extendeWidth, fullHeight))
 
+    output.write_gif("gestalt-"+originalPath+".gif", program="ffmpeg")
     output.write_videofile("gestalt-"+originalPath)
 
 
@@ -89,4 +86,4 @@ if __name__ == "__main__":
     else:
         start_time = time.time()
         main(args[0])
-        print("--- %s seconds ---" % (time.time() - start_time))
+        print("--- %d seconds ---" % (time.time() - start_time))

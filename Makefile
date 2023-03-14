@@ -15,3 +15,6 @@ $(MOVIEPY_INSTALL): /usr/bin/pip
 
 /usr/bin/python3:
 	sudo apt-get install python3
+
+im:
+	sudo apt-get install imagemagick
