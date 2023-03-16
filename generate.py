@@ -2,8 +2,8 @@ import sys
 from moviepy.editor import CompositeVideoClip, ImageClip, VideoFileClip, ColorClip
 from math import sqrt, ceil
 
-approxMiniDuration = 1
-minMiniHeight = 30
+approxThumbDuration = 1
+minThumbHeight = 30
 
 WIDTH = 0
 HEIGHT = 1
@@ -13,69 +13,69 @@ def main(originalPath):
     original = VideoFileClip(originalPath, audio=False)
     fullHeight = original.size[HEIGHT]
     fullWidth = original.size[WIDTH]
-    maxMinisPerSide = fullWidth//minMiniHeight
-    minisPerSide = ceil(sqrt(original.duration/approxMiniDuration))
-    minisPerSide = max(2,minisPerSide)
-    minisPerSide = min(maxMinisPerSide,minisPerSide)
-    miniCount = minisPerSide*minisPerSide
-    extendeWidth = fullWidth*(minisPerSide+1)//minisPerSide
-    miniHeight = fullHeight//minisPerSide
-    miniWidth = fullWidth//minisPerSide
-    miniDuration = original.duration/miniCount
+    maxThumbsPerSide = fullWidth//minThumbHeight
+    thumbsPerSide = ceil(sqrt(original.duration/approxThumbDuration))
+    thumbsPerSide = max(2,thumbsPerSide)
+    thumbsPerSide = min(maxThumbsPerSide,thumbsPerSide)
+    thumbCount = thumbsPerSide*thumbsPerSide
+    extendeWidth = fullWidth*(thumbsPerSide+1)//thumbsPerSide
+    thumbHeight = fullHeight//thumbsPerSide
+    thumbWidth = fullWidth//thumbsPerSide
+    thumbDuration = original.duration/thumbCount
 
     print("%dx%d grid of %fx%f %fs thumbnails" %
-          (minisPerSide, minisPerSide, miniWidth, miniHeight, miniDuration))
+          (thumbsPerSide, thumbsPerSide, thumbWidth, thumbHeight, thumbDuration))
 
     def motion(i, j):
         forward = j % 2 == 0
-        y = j*miniHeight
+        y = j*thumbHeight
         if forward:
-            return lambda t: (miniWidth*(i+t/miniDuration), y)
+            return lambda t: (thumbWidth*(i+t/thumbDuration), y)
         else:
-            return lambda t: (extendeWidth - miniWidth*(i+t/miniDuration+1), y)
+            return lambda t: (extendeWidth - thumbWidth*(i+t/thumbDuration+1), y)
 
-    def mini(j, i):
-        k = j*minisPerSide + i
+    def thumb(j, i):
+        k = j*thumbsPerSide + i
         return (original
-                .subclip(k*miniDuration, (k+1)*miniDuration)
-                .resize((miniWidth, miniHeight))
+                .subclip(k*thumbDuration, (k+1)*thumbDuration)
+                .resize((thumbWidth, thumbHeight))
                 .set_position(motion(i, j)))
 
-    minis = [mini(j, i)
-             for j in range(minisPerSide)
-             for i in range(minisPerSide)]
+    thumbs = [thumb(j, i)
+             for j in range(thumbsPerSide)
+             for i in range(thumbsPerSide)]
 
     def left(j):
-        k = j*minisPerSide - 1
+        k = j*thumbsPerSide - 1
         return (original
-                .subclip(k*miniDuration, (k+1)*miniDuration)
-                .resize((miniWidth, miniHeight))
+                .subclip(k*thumbDuration, (k+1)*thumbDuration)
+                .resize((thumbWidth, thumbHeight))
                 .set_position(motion(-1, j)))
 
     lefts = [left(j)
-             for j in range(1, minisPerSide)]
+             for j in range(1, thumbsPerSide)]
 
     def right(j):
-        k = (j+1)*minisPerSide
+        k = (j+1)*thumbsPerSide
         return (original
-                .subclip(k*miniDuration, (k+1)*miniDuration)
-                .resize((miniWidth, miniHeight))
-                .set_position(motion(minisPerSide, j)))
+                .subclip(k*thumbDuration, (k+1)*thumbDuration)
+                .resize((thumbWidth, thumbHeight))
+                .set_position(motion(thumbsPerSide, j)))
 
     rights = [right(j)
-              for j in range(minisPerSide-1)]
+              for j in range(thumbsPerSide-1)]
 
     leading = (original
-               .to_ImageClip(0, duration=miniDuration)
-               .resize((miniWidth, miniHeight))
+               .to_ImageClip(0, duration=thumbDuration)
+               .resize((thumbWidth, thumbHeight))
                .set_position(motion(-1, 0)))
     trailing = (original
-                .to_ImageClip(original.duration - 1, duration=miniDuration)
-                .resize((miniWidth, miniHeight))
-                .set_position(motion(minisPerSide, minisPerSide-1)))
+                .to_ImageClip(original.duration - 1, duration=thumbDuration)
+                .resize((thumbWidth, thumbHeight))
+                .set_position(motion(thumbsPerSide, thumbsPerSide-1)))
 
     output = CompositeVideoClip(
-        minis+lefts+rights+[leading, trailing], (extendeWidth, fullHeight))
+        thumbs+lefts+rights+[leading, trailing], (extendeWidth, fullHeight))
 
     # output.write_gif("gestalt-"+originalPath+".gif", program="ffmpeg")
     output.write_videofile("gestalt-"+originalPath)
