@@ -1,9 +1,8 @@
 import sys
-from moviepy.editor import CompositeVideoClip, concatenate_videoclips, ImageClip, VideoFileClip, ColorClip
+from moviepy.editor import CompositeVideoClip, ImageClip, VideoFileClip, ColorClip
+from math import sqrt, ceil
 
-
-minisPerSide = 8
-miniCount = minisPerSide*minisPerSide
+approxMiniDuration = 10
 
 WIDTH = 0
 HEIGHT = 1
@@ -13,14 +12,16 @@ def main(originalPath):
     original = VideoFileClip(originalPath, audio=False)
     fullHeight = original.size[HEIGHT]
     fullWidth = original.size[WIDTH]
+    minisPerSide = ceil(sqrt(original.duration/approxMiniDuration))
+    minisPerSide = max(2,minisPerSide)
+    miniCount = minisPerSide*minisPerSide
     extendeWidth = fullWidth*(minisPerSide+1)//minisPerSide
     miniHeight = fullHeight/minisPerSide
     miniWidth = fullWidth/minisPerSide
     miniDuration = original.duration/miniCount
-    # base = ImageClip("1x1-transparent.png", duration=miniDuration,
-    #                 ismask=False).resize((extendeWidth, fullHeight))
-    base = ColorClip((extendeWidth, fullHeight),
-                     color=[0, 0, 255, 128], duration=miniDuration)
+
+    print("%dx%d grid of %fx%f %fs thumbnails" %
+          (minisPerSide, minisPerSide, miniWidth, miniHeight, miniDuration))
 
     def motion(i, j):
         forward = j % 2 == 0
@@ -73,7 +74,7 @@ def main(originalPath):
     output = CompositeVideoClip(
         minis+lefts+rights+[leading, trailing], (extendeWidth, fullHeight))
 
-    output.write_gif("gestalt-"+originalPath+".gif", program="ffmpeg")
+    # output.write_gif("gestalt-"+originalPath+".gif", program="ffmpeg")
     output.write_videofile("gestalt-"+originalPath)
 
 
