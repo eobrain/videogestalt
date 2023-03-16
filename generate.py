@@ -2,7 +2,8 @@ import sys
 from moviepy.editor import CompositeVideoClip, ImageClip, VideoFileClip, ColorClip
 from math import sqrt, ceil
 
-approxMiniDuration = 10
+approxMiniDuration = 1
+minMiniHeight = 30
 
 WIDTH = 0
 HEIGHT = 1
@@ -12,12 +13,14 @@ def main(originalPath):
     original = VideoFileClip(originalPath, audio=False)
     fullHeight = original.size[HEIGHT]
     fullWidth = original.size[WIDTH]
+    maxMinisPerSide = fullWidth//minMiniHeight
     minisPerSide = ceil(sqrt(original.duration/approxMiniDuration))
     minisPerSide = max(2,minisPerSide)
+    minisPerSide = min(maxMinisPerSide,minisPerSide)
     miniCount = minisPerSide*minisPerSide
     extendeWidth = fullWidth*(minisPerSide+1)//minisPerSide
-    miniHeight = fullHeight/minisPerSide
-    miniWidth = fullWidth/minisPerSide
+    miniHeight = fullHeight//minisPerSide
+    miniWidth = fullWidth//minisPerSide
     miniDuration = original.duration/miniCount
 
     print("%dx%d grid of %fx%f %fs thumbnails" %
