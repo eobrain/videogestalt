@@ -2,8 +2,9 @@ from math import sqrt, ceil
 from argparse import ArgumentParser
 from moviepy.editor import CompositeVideoClip, ImageClip, VideoFileClip, ColorClip
 
-approxThumbDuration = 1
-minThumbHeight = 30
+OUTPUT_WIDTH = 1000
+MIN_SPEED_PIXELS_PER_FRAME = 2
+MIN_THUMB_WIDTH = 30
 
 WIDTH = 0
 HEIGHT = 1
@@ -17,12 +18,12 @@ def main(originalPath, generateGif, generateVideo):
         print("Will generating GIF")
 
     original = VideoFileClip(originalPath, audio=False)
-    fullHeight = original.size[HEIGHT]
-    fullWidth = original.size[WIDTH]
-    maxThumbsPerSide = fullWidth//minThumbHeight
-    thumbsPerSide = ceil(sqrt(original.duration/approxThumbDuration))
-    thumbsPerSide = max(2, thumbsPerSide)
-    thumbsPerSide = min(maxThumbsPerSide, thumbsPerSide)
+    thumbsPerSide = round(MIN_SPEED_PIXELS_PER_FRAME*original.duration*original.fps/OUTPUT_WIDTH)
+    thumbsPerSide = max(thumbsPerSide, 2)
+    thumbsPerSide = min(thumbsPerSide, OUTPUT_WIDTH//MIN_THUMB_WIDTH)
+
+    fullWidth = OUTPUT_WIDTH
+    fullHeight = round(OUTPUT_WIDTH*original.size[HEIGHT]/original.size[WIDTH])
     thumbCount = thumbsPerSide*thumbsPerSide
     extendeWidth = fullWidth*(thumbsPerSide+1)//thumbsPerSide
     thumbHeight = fullHeight//thumbsPerSide
