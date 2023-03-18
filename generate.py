@@ -4,7 +4,8 @@ from moviepy.editor import CompositeVideoClip, ImageClip, VideoFileClip, ColorCl
 
 OUTPUT_WIDTH = 1000
 MIN_SPEED_PIXELS_PER_FRAME = 2
-MIN_THUMB_WIDTH = 30
+MIN_THUMB_WIDTH = 60
+MAX_THUMBS_PER_SIDE = OUTPUT_WIDTH//MIN_THUMB_WIDTH
 
 WIDTH = 0
 HEIGHT = 1
@@ -18,19 +19,28 @@ def main(originalPath, generateGif, generateVideo):
         print("Will generating GIF")
 
     original = VideoFileClip(originalPath, audio=False)
-    thumbsPerSide = round(MIN_SPEED_PIXELS_PER_FRAME*original.duration*original.fps/OUTPUT_WIDTH)
-    thumbsPerSide = max(thumbsPerSide, 2)
-    thumbsPerSide = min(thumbsPerSide, OUTPUT_WIDTH//MIN_THUMB_WIDTH)
+    minSpeedPixelsPerSec = MIN_SPEED_PIXELS_PER_FRAME*original.fps
+    sumOfThumbWidths = minSpeedPixelsPerSec*original.duration
+    thumbsPerSide = round(sqrt(sumOfThumbWidths/MIN_THUMB_WIDTH))
+    if thumbsPerSide < 2:
+        print("Forcing at least 2x2 grid")
+        thumbsPerSide = 2
 
-    fullWidth = OUTPUT_WIDTH
-    fullHeight = round(OUTPUT_WIDTH*original.size[HEIGHT]/original.size[WIDTH])
+    if thumbsPerSide > MAX_THUMBS_PER_SIDE:
+        print("Forcing at most %dx%d grid" %
+              (MAX_THUMBS_PER_SIDE, MAX_THUMBS_PER_SIDE))
+        thumbsPerSide = MAX_THUMBS_PER_SIDE
+
+    fullWidth = MIN_THUMB_WIDTH*thumbsPerSide
+    fullHeight = round(fullWidth*original.size[HEIGHT]/original.size[WIDTH])
+    print("Full size: %dx%d" % (fullWidth, fullHeight))
     thumbCount = thumbsPerSide*thumbsPerSide
-    extendeWidth = fullWidth*(thumbsPerSide+1)//thumbsPerSide
-    thumbHeight = fullHeight//thumbsPerSide
-    thumbWidth = fullWidth//thumbsPerSide
+    thumbWidth = round(fullWidth/thumbsPerSide)
+    thumbHeight = round(thumbWidth*original.size[HEIGHT]/original.size[WIDTH])
     thumbDuration = original.duration/thumbCount
     speedPixelsPerSec = thumbWidth/thumbDuration
     speedPixelsPerFrame = speedPixelsPerSec/original.fps
+    extendeWidth = round(fullWidth*(thumbsPerSide+1)/thumbsPerSide)
 
     print("%dx%d grid of %fx%f %fs thumbnails, moving at @ %f pixels/frame" %
           (thumbsPerSide, thumbsPerSide, thumbWidth, thumbHeight, thumbDuration, speedPixelsPerFrame))
