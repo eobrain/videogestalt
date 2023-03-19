@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+
+
+# Author: Eamonn O'Brien-Strain
+# License: Mozilla Public License Version 2.0
+# Description: Generates overview of video
+# Usage: python generate.py -h
+
 from math import sqrt, ceil
 from argparse import ArgumentParser
 from moviepy.editor import CompositeVideoClip, ImageClip, VideoFileClip, ColorClip
@@ -106,7 +114,7 @@ if __name__ == "__main__":
     import time
 
     parser = ArgumentParser(
-        prog='generate.py',
+        prog='gestalt.py',
         description='Generates overview of video',
         epilog='(c) Eamonn O\'Brien-Strain')
     parser.add_argument('-i', '--input', metavar='something.mp4',
