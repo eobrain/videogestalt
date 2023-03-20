@@ -17,6 +17,12 @@ chmod +x gestalt.py
 
 If they are not already installed, you will need to install `python3` and the corresponding Python package manager `pip`.
 
+
+On Linux and friends you might be able to do this like so:
+```bash
+sudo apt-get install python3 python3-pip
+```
+
 You will need to install the `moviepy` Python library:
 
 ```bash
