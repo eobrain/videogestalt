@@ -4,47 +4,58 @@
 
 Presents a video in a summary form that shows the entire video at once as an array of moving video thumbnails.
 
+## Description
+
+Video Gestalt presents a condensed video array, showing the entire video at once as moving video thumbnails.
+
+The above is an example of the Video Gestalt for a 50-second commercial for Vesta scooters. (Click the Video Gestalt to see the original video.)
+
+As you can see, it is a looping video with moving thumbnails of the original video. In one second, you can see every frame of the original video at a glance, without any discontinuities as it loops. This is done by arranging that each thumbnail slides over exactly its width in one loop so that the next thumbnail takes over seamlessly.
+
+Hence, the video gestalts can be read in two ways: 1- an overall quick glance shows all the scenes of the entire video, 2- by focusing on one animated thumbnail, we can watch the entire video, by starting in the upper left corner, and following to the right, then descending one block lower and moving from right to left, then descending one block and moving left to right again, etc.
+
+A longer explanation is available in [this blog post](https://eamonn.org/video-gestalt-one-glance-overview-of-a-video).
+
 ## Installation
 
-So far this has only been tested on Linux and Chrome OS, but it will likely work on MacOS too, and maybe even on Windows.
+So far this has been tested on Linux, Chrome OS and Windows, but it will likely work on MacOS too.
 
-The only file you need from this repo is `gestalt.py`. You can grab this however you want, and make it executable. For example, do the following from the command line:
+To install, simply use `pip`:
 
 ```bash
-wget https://raw.githubusercontent.com/eobrain/videogestalt/main/gestalt.py
-chmod +x gestalt.py
+pip install --upgrade videogestalt
 ```
 
-If they are not already installed, you will need to install `python3` and the corresponding Python package manager `pip`.
-
+If they are not already installed, you will need to install `python3` and the corresponding Python package manager `pip` beforehand.
 
 On Linux and friends you might be able to do this like so:
 ```bash
 sudo apt-get install python3 python3-pip
 ```
 
-You will need to install the `moviepy` Python library:
-
-```bash
-pip install moviepy
-```
-
-
 ## Usage
 
-Put the `gestalt.py` in the same directory as an input video file `test.mp4`.
+An executable binary `videogestalt` is automatically installed in the local environment.
 
-Generate a video file:
+The following examples assume you cloned the repository to get access to the `example` folder.
 
-```bash
-./gestalt -i test.mp4 -v
-```
-
-Generate an animated GIF (warning, can be large):
+To generate a video file:
 
 ```bash
-./gestalt -i test.mp4 -g
+videogestalt -i example/test.mp4 -v
 ```
+
+To generate an animated GIF (warning, output can be large):
+
+```bash
+videogestalt -i example/test.mp4 -g
+```
+
+## License
+
+Created by Eamonn O'Brien-Strain.
+
+Licensed under the Mozilla Public License 2.0
 
 [1]: https://github.com/eobrain/videogestalt/master/resources/vespa-commercial-gestalt.gif
 [2]: https://ia904607.us.archive.org/11/items/vespa-scooter-commercial/Vespa%20Scooter%20Commercial.mp4

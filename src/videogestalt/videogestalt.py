@@ -3,7 +3,9 @@
 # Author: Eamonn O'Brien-Strain
 # License: Mozilla Public License Version 2.0
 # Description: Generates overview of video
-# Usage: python gestalt.py -h
+# Usage: python videogestalt.py -h
+
+import time
 
 from math import sqrt, ceil
 from argparse import ArgumentParser
@@ -109,9 +111,10 @@ def main(originalPath, generateGif, generateVideo):
         output.write_videofile("gestalt-"+originalPath)
 
 
-if __name__ == "__main__":
+
     import time
 
+def main_entry():
     parser = ArgumentParser(
         prog='gestalt.py',
         description='Generates overview of video',
@@ -129,3 +132,6 @@ if __name__ == "__main__":
     start_time = time.time()
     main(args.input, args.gif, args.video)
     print("--- %d seconds ---" % (time.time() - start_time))
+
+if __name__ == "__main__":
+    main_entry()
