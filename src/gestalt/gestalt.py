@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
-
 # Author: Eamonn O'Brien-Strain
 # License: Mozilla Public License Version 2.0
 # Description: Generates overview of video
-# Usage: python generate.py -h
+# Usage: python gestalt.py -h
 
 from math import sqrt, ceil
 from argparse import ArgumentParser
