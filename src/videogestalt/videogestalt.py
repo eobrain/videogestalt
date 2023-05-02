@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 # Author: Eamonn O'Brien-Strain
+# Contributors: Stephen Karl Larroque
 # License: Mozilla Public License Version 2.0
 # Description: Generates overview of video
 # Usage: python videogestalt.py -h
