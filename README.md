@@ -58,6 +58,14 @@ The application can also be used as a Python module:
 >>> vg.main('-i example/test.mp4 -o test-gestalt --gif')
 ```
 
+## Building
+
+The module can be built with PEP517 standard tools, such as `pypa/build`:
+
+```bash
+python -sBm build .
+```
+
 ## License
 
 Created by Eamonn O'Brien-Strain.
