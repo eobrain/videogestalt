@@ -42,13 +42,20 @@ The following examples assume you cloned the repository to get access to the `ex
 To generate a video file:
 
 ```bash
-videogestalt -i example/test.mp4 -v
+videogestalt -i example/test.mp4 -o test-gestalt --video
 ```
 
 To generate an animated GIF (warning, output can be large):
 
 ```bash
-videogestalt -i example/test.mp4 -g
+videogestalt -i example/test.mp4 -o test-gestalt --gif
+```
+
+The application can also be used as a Python module:
+
+```python
+>>> from videogestalt import videogestalt as vg
+>>> vg.main('-i example/test.mp4 -o test-gestalt --gif')
 ```
 
 ## License

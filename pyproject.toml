@@ -70,7 +70,7 @@ file = "README.md"
 content-type = "text/markdown"
 
 [project.scripts]
-videogestalt = "videogestalt.videogestalt:main_entry"
+videogestalt = "videogestalt.videogestalt:main"
 
 #[tool.setuptools]
 #package-dir = {"" = "src"}

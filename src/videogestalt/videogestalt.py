@@ -5,10 +5,13 @@
 # Description: Generates overview of video
 # Usage: python videogestalt.py -h
 
+import os
+import shlex
+import sys
 import time
 
 from math import sqrt, ceil
-from argparse import ArgumentParser
+from argparse import ArgumentParser, ArgumentTypeError
 from moviepy.editor import CompositeVideoClip, ImageClip, VideoFileClip, ColorClip
 
 OUTPUT_WIDTH = 1000
@@ -20,12 +23,13 @@ WIDTH = 0
 HEIGHT = 1
 
 
-def main(originalPath, generateGif, generateVideo):
+def gen_gestalt(originalPath, outputPath, generateGif, generateVideo):
+    '''Generate an animated gestalt image or video from a video'''
     print("Generating gestalt for %s" % originalPath)
     if (generateVideo):
-        print("Will generating video")
+        print("Will generate a video")
     if (generateGif):
-        print("Will generating GIF")
+        print("Will generate a GIF")
 
     original = VideoFileClip(originalPath, audio=False)
     minSpeedPixelsPerSec = MIN_SPEED_PIXELS_PER_FRAME*original.fps
@@ -106,32 +110,63 @@ def main(originalPath, generateGif, generateVideo):
         thumbs+lefts+rights+[leading, trailing], (extendeWidth, fullHeight))
 
     if generateGif:
-        output.write_gif("gestalt-"+originalPath+".gif", program="ffmpeg")
-    if generateVideo:
-        output.write_videofile("gestalt-"+originalPath)
+        output.write_gif("%s%s" % (outputPath, ".gif"), program="ffmpeg")
+    elif generateVideo:
+        output.write_videofile(outputPath)
 
+def is_dir_or_file(dirname):
+    '''Checks if a path is an actual directory that exists or a file'''
+    if not os.path.isdir(dirname) and not os.path.isfile(dirname):
+        msg = "{0} is not a directory nor a file".format(dirname)
+        raise ArgumentTypeError(msg)
+    else:
+        return dirname
 
+def fullpath(relpath):
+    '''Relative path to absolute'''
+    if (type(relpath) is object or hasattr(relpath, 'read')): # relpath is either an object or file-like, try to get its name
+        relpath = relpath.name
+    return os.path.abspath(os.path.expanduser(relpath))
 
-    import time
+def main(argv=None):
+    '''Script entry point, can be used in commandline or as a Python module'''
+    # Allow to be used as a module or in commandline, by storing the commandline arguments in function argument argv if empty
+    if argv is None: # if argv is empty, fetch from the commandline
+        argv = sys.argv[1:]
+    elif isinstance(argv, str): # else if argv is supplied but it's a simple string, we need to parse it to a list of arguments before handing to argparse or any other argument parser
+        argv = shlex.split(argv) # Parse string just like argv using shlex
 
-def main_entry():
+    # Setup arguments parser
     parser = ArgumentParser(
         prog='gestalt.py',
         description='Generates overview of video',
         epilog='(c) Eamonn O\'Brien-Strain')
+
     parser.add_argument('-i', '--input', metavar='something.mp4',
+                        type=is_dir_or_file,
                         required=True,
                         help='input video file')
-    parser.add_argument('-g', '--gif', action='store_true',
+    parser.add_argument('-o', '--output', metavar='/some/folder/output.(gif|mp4)',
+                        type=str,
+                        required=True,
+                        help='output filepath')
+
+    mgroup = parser.add_mutually_exclusive_group(required=True)
+    mgroup.add_argument('-g', '--gif', action='store_true',
                         default=False,
                         help='generate GIF')
-    parser.add_argument('-v', '--video', action='store_true',
+    mgroup.add_argument('-v', '--video', action='store_true',
                         default=False,
                         help='generate video file')
-    args = parser.parse_args()
-    start_time = time.time()
-    main(args.input, args.gif, args.video)
-    print("--- %d seconds ---" % (time.time() - start_time))
 
+    # Parse arguments (either from commandline or function argument when used as a module)
+    args = parser.parse_args(argv)
+
+    # Generate the gestalt image
+    start_time = time.time()  # note this is not a reliable performance indicator, use time.process_time() instead
+    gen_gestalt(fullpath(args.input), fullpath(args.output), args.gif, args.video)
+    print("--- Total time spent: %d seconds ---" % (time.time() - start_time))
+
+# Commandline call
 if __name__ == "__main__":
     main_entry()
