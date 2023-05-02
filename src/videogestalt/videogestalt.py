@@ -10,9 +10,10 @@ import shlex
 import sys
 import time
 
-from math import sqrt, ceil
 from argparse import ArgumentParser, ArgumentTypeError
+from math import sqrt, ceil
 from moviepy.editor import CompositeVideoClip, ImageClip, VideoFileClip, ColorClip
+from pathlib import Path
 
 OUTPUT_WIDTH = 1000
 MIN_SPEED_PIXELS_PER_FRAME = 2
@@ -109,9 +110,17 @@ def gen_gestalt(originalPath, outputPath, generateGif, generateVideo):
     output = CompositeVideoClip(
         thumbs+lefts+rights+[leading, trailing], (extendeWidth, fullHeight))
 
+    # Write output
     if generateGif:
+        # to a gif file
         output.write_gif("%s%s" % (outputPath, ".gif"), program="ffmpeg")
     elif generateVideo:
+        # to a video file
+
+        # MoviePy requires a file extension to determine how to encode the output
+        # Hence, by default, if none is provided, reuse the input file extension
+        if (outputPath.find('.') < 0):  # no extension found
+            outputPath = "%s%s" % (outputPath, Path(originalPath).suffix)  # we append the input path file extension
         output.write_videofile(outputPath)
 
 def is_dir_or_file(dirname):
