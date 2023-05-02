@@ -66,6 +66,12 @@ The module can be built with PEP517 standard tools, such as `pypa/build`:
 python -sBm build .
 ```
 
+It can also be installed in development/editable mode after cloning this git repository:
+
+```bash
+pip install --upgrade -e .
+```
+
 ## License
 
 Created by Eamonn O'Brien-Strain.
