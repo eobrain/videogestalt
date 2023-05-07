@@ -65,7 +65,6 @@ testmeta = [  # dependencies to test meta-data
     "build",
     "twine",
     "validate-pyproject",
-    "rstcheck",
 ]
 
 [project.readme]

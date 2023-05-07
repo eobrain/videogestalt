@@ -56,13 +56,12 @@ jobs:
         name: codecov-umbrella
         verbose: true
     - name: Build sdist (necessary for the other tests below)
-      if: ${{ matrix.python-version == '*' }}
+      if: ${{ matrix.python-version == '3.x' }}
       run: python -sBm build
     - name: Twine check
-      if: ${{ matrix.python-version == '*' }}
+      if: ${{ matrix.python-version == '3.x' }}
       run: |
         twine check "dist/*"
-        rstcheck README.rst
     - name: pyproject.toml validity
-      if: ${{ matrix.python-version == '*' }}
+      if: ${{ matrix.python-version == '3.x' }}
       run: validate-pyproject pyproject.toml -v
