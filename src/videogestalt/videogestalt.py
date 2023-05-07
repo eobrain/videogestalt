@@ -113,8 +113,11 @@ def gen_gestalt(originalPath, outputPath, generateGif, generateVideo):
 
     # Write output
     if generateGif:
+        ext = ''
+        if (outputPath[-4:].lower() != '.gif'):  # .gif extension not found
+            ext = '.gif'  # we append .gif extension
         # to a gif file
-        output.write_gif("%s%s" % (outputPath, ".gif"), program="ffmpeg")
+        output.write_gif("%s%s" % (outputPath, ext), program="ffmpeg")
     elif generateVideo:
         # to a video file
 
@@ -148,8 +151,8 @@ def main(argv=None):
 
     # Setup arguments parser
     parser = ArgumentParser(
-        prog='gestalt.py',
-        description='Generates overview of video',
+        prog='videogestalt',
+        description='Generates an animated overview of video',
         epilog='(c) Eamonn O\'Brien-Strain')
 
     parser.add_argument('-i', '--input', metavar='something.mp4',
