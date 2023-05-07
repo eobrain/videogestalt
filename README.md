@@ -1,6 +1,10 @@
 # Video Gestalt
 
-[![gestalt-Vespa-Scooter-Commercial ia mp4][1]][2]
+[![PyPI-Status][1]][2] [![PyPI-Versions][3]][4] [![PyPI-Downloads][5]][6]
+
+[![Build-Status][7]][8] [![Coverage-Status][9]][10]
+
+[![Example video gestalt: Vespa-Scooter-Commercial][11]][12]
 
 Presents a video in a summary form that shows the entire video at once as an array of moving video thumbnails.
 
@@ -84,6 +88,15 @@ Created by Eamonn O'Brien-Strain.
 
 Licensed under the Mozilla Public License 2.0
 
-[1]: https://raw.githubusercontent.com/eobrain/videogestalt/main/resources/vespa-commercial-gestalt.gif
-[2]: https://ia904607.us.archive.org/11/items/vespa-scooter-commercial/Vespa%20Scooter%20Commercial.mp4
-
+[1]: https://img.shields.io/pypi/v/videogestalt.svg
+[2]: https://pypi.org/project/videogestalt
+[3]: https://img.shields.io/pypi/pyversions/videogestalt.svg?logo=python&logoColor=white
+[4]: https://pypi.org/project/videogestalt
+[5]: https://img.shields.io/pypi/dm/videogestalt.svg?label=pypi%20downloads&logo=python&logoColor=white
+[6]: https://pypi.org/project/videogestalt
+[7]: https://github.com/eobrain/videogestalt/actions/workflows/ci-build.yml/badge.svg?event=push
+[8]: https://github.com/eobrain/videogestalt/actions/workflows/ci-build.yml
+[9]: https://codecov.io/github/eobrain/videogestalt/coverage.svg?branch=master
+[10]: https://codecov.io/github/eobrain/videogestalt?branch=master
+[11]: https://raw.githubusercontent.com/eobrain/videogestalt/main/resources/vespa-commercial-gestalt.gif
+[12]: https://ia904607.us.archive.org/11/items/vespa-scooter-commercial/Vespa%20Scooter%20Commercial.mp4
