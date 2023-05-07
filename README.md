@@ -84,6 +84,6 @@ Created by Eamonn O'Brien-Strain.
 
 Licensed under the Mozilla Public License 2.0
 
-[1]: https://github.com/eobrain/videogestalt/master/resources/vespa-commercial-gestalt.gif
+[1]: https://raw.githubusercontent.com/eobrain/videogestalt/main/resources/vespa-commercial-gestalt.gif
 [2]: https://ia904607.us.archive.org/11/items/vespa-scooter-commercial/Vespa%20Scooter%20Commercial.mp4
 
