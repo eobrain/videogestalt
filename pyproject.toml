@@ -111,10 +111,6 @@ relative_files = true
 include = [
     "*/videogestalt.py",
     ]
-exclude = [
-    "tests/*",
-    "setup.py",
-]
 
 [tool.coverage.paths]
 source = ["src"]
