@@ -1,0 +1,1 @@
+# An empty requirements.txt file is necessary for the setup-python GitHub Actions workflow.

@@ -57,6 +57,10 @@ Download = "https://github.com/eobrain/videogestalt/releases"
 #Changelog = "https://url/changelog"
 
 [project.optional-dependencies]
+test = [  # minimum dependencies to run tests
+    "pytest",
+    "pytest-cov",
+]
 testmeta = [  # dependencies to test meta-data
     "build",
     "twine",
