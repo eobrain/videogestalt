@@ -1,0 +1,3 @@
+# Cannot yet fully replace MANIFEST.in by pyproject.toml if we use setuptools, see: https://github.com/pypa/setuptools/issues/3341
+# Test suite
+recursive-exclude tests *.py  # unit test scripts
