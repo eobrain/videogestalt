@@ -43,26 +43,26 @@ pip install --upgrade pip
 
 An executable binary `videogestalt` is automatically installed in the local environment.
 
-The following examples assume you cloned the repository to get access to the `example` folder.
-
 To generate a video file:
 
 ```bash
-videogestalt -i example/test.mp4 -o test-gestalt --video
+videogestalt -i countdown.mp4 -o countdown-gestalt --video
 ```
 
 To generate an animated GIF (warning, output can be large):
 
 ```bash
-videogestalt -i example/test.mp4 -o test-gestalt --gif
+videogestalt -i countdown.mp4 -o countdown-gestalt --gif
 ```
 
 The application can also be used as a Python module:
 
 ```python
 >>> from videogestalt import videogestalt as vg
->>> vg.main('-i example/test.mp4 -o test-gestalt --gif')
+>>> vg.main('-i countdown.mp4 -o countdown-gestalt --gif')
 ```
+
+Note: if the repository is cloned, there is an example `countdown.mp4` video in `tests/examples`.
 
 ## Building
 

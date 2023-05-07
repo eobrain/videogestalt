@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]  # beware if using setuptools: setup.py still gets executed, and even if pyproject.toml fields take precedence, if there is any code error in setup.py, building will fail!
 name = "videogestalt"
-version = "0.2.0"  # see PEP 440 https://peps.python.org/pep-0440/#pre-releases and https://packaging.python.org/en/latest/guides/single-sourcing-package-version/
+version = "0.2.3"  # see PEP 440 https://peps.python.org/pep-0440/#pre-releases and https://packaging.python.org/en/latest/guides/single-sourcing-package-version/
 description = "Regular Expression Path Matcher - Easily batch manipulate folders and files trees with regular expression!"
 authors = [
     {name = "Eamonn O'Brien-Strain"},
@@ -86,4 +86,59 @@ include = ["videogestalt*"]
 "*" = [
     "LICENSE*",
     "README*",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+    "-ra",
+    "--strict-markers",
+]
+xfail_strict = true
+testpaths = "tests"  # default path to look for tests if nothing is specified in commandline
+filterwarnings = [
+    "once::Warning",
+]
+required_plugins = "pytest-cov"
+
+[tool.coverage.run]
+branch = true
+relative_files = true
+include = [
+    "*/videogestalt.py",
+    ]
+exclude = [
+    "tests/*",
+    "setup.py",
+]
+
+[tool.coverage.paths]
+source = ["src"]
+
+[tool.coverage.report]  # Beware: you need to delete .coveragerc if you have one, otherwise .coveragerc will take precedence!
+show_missing = true
+include = [
+    "*/videogestalt.py",
+]
+omit = [
+    "*/python?.?/*",
+    "*/site-packages/nose/*",
+    "*/opt/python/pypy*",
+    "*/tests/*",
+]
+exclude_lines = [
+    # a more strict default pragma
+    "\\# pragma: no cover\\b",
+
+    # allow defensive code
+    "^\\s*raise AssertionError\\b",
+    "^\\s*raise NotImplementedError\\b",
+    "^\\s*return NotImplemented\\b",
+    "^\\s*raise$",
+
+    # typing-related code
+    "^if (False|TYPE_CHECKING):",
+    ": \\.\\.\\.(\\s*#.*)?$",
+    "^ +\\.\\.\\.$",
+    "-> ['\"]?NoReturn['\"]?:",
 ]
