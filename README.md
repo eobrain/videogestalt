@@ -33,6 +33,12 @@ On Linux and friends you might be able to do this like so:
 sudo apt-get install python3 python3-pip
 ```
 
+If you get an error, please ensure you are using the latest `pip` version, as older versions may not support PEP517 Python packages:
+
+```bash
+pip install --upgrade pip
+```
+
 ## Usage
 
 An executable binary `videogestalt` is automatically installed in the local environment.
