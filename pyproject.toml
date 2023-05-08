@@ -13,7 +13,6 @@ authors = [
     {name = "Eamonn O'Brien-Strain", email = "eobrain@proton.me"},
     ]
 maintainers = [
-    {name = "Eamonn O'Brien-Strain", email = "eobrain@proton.me"},
     {name = "Stephen Karl Larroque", email = "lrq3000@gmail.com"},
     ]
 requires-python = ">=3.7"
