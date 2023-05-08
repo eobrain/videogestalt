@@ -37,8 +37,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-    - uses: FedericoCarboni/setup-ffmpeg@v2
-      id: setup-ffmpeg
+    #- uses: FedericoCarboni/setup-ffmpeg@v2  # ffmpeg is transparently and automatically downloaded by moviepy
+    #  id: setup-ffmpeg
     - name: Install this module
       run: |
         python -m pip install --upgrade --editable .[test] --verbose --use-pep517
