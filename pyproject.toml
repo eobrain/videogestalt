@@ -10,10 +10,10 @@ name = "videogestalt"
 version = "0.2.4"  # see PEP 440 https://peps.python.org/pep-0440/#pre-releases and https://packaging.python.org/en/latest/guides/single-sourcing-package-version/
 description = "Regular Expression Path Matcher - Easily batch manipulate folders and files trees with regular expression!"
 authors = [
-    {name = "Eamonn O'Brien-Strain"},
+    {name = "Eamonn O'Brien-Strain", email = "eobrain@proton.me"},
     ]
 maintainers = [
-    {name = "Eamonn O'Brien-Strain"},
+    {name = "Eamonn O'Brien-Strain", email = "eobrain@proton.me"},
     {name = "Stephen Karl Larroque", email = "lrq3000@gmail.com"},
     ]
 requires-python = ">=3.7"
