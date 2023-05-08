@@ -4,9 +4,11 @@
 
 [![Build-Status][7]][8] [![Coverage-Status][9]][10]
 
+One-Glance Overview of any Video 🎞👁🎞
+
 [![Example video gestalt: Vespa-Scooter-Commercial][11]][12]
 
-Presents a video in a summary form that shows the entire video at once as an array of moving video thumbnails.
+VideoGestalt presents a video in a summary form that shows the entire video at once as an array of moving video thumbnails.
 
 ## Description
 
