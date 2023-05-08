@@ -30,6 +30,8 @@ To install, simply use `pip`:
 pip install --upgrade videogestalt
 ```
 
+This will also install [MoviePy](https://zulko.github.io/moviepy/), which will automatically install [FFmpeg](https://ffmpeg.org/) if necessary.
+
 If they are not already installed, you will need to install `python3` and the corresponding Python package manager `pip` beforehand.
 
 On Linux and friends you might be able to do this like so:
