@@ -1,10 +1,9 @@
+[![videogestalt-logo][6]
 # Video Gestalt
 
 [![PyPI-Status][1]][2] [![PyPI-Versions][3]][2] [![PyPi-License][4]][2] [![PyPI-Downloads][5]][2]
 
 [![Build-Status][7]][8] [![Coverage-Status][9]][10]
-
-[![videogestalt-logo][6]
 
 One-Glance Overview of Any Video
 
