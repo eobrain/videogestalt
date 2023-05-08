@@ -9,7 +9,7 @@ One-Glance Overview of Any Video
 
 [![Example video gestalt: Vespa-Scooter-Commercial][11]][12]
 
-VideoGestalt presents a video in a summary form that shows the entire video at once as an array of moving video thumbnails.
+Video Gestalt displays a video in a summary form that shows the entire video at once as an array of moving video thumbnails.
 
 ## Description
 
