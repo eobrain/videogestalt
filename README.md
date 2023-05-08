@@ -1,10 +1,12 @@
 # Video Gestalt
 
-[![PyPI-Status][1]][2] [![PyPI-Versions][3]][4] [![PyPI-Downloads][5]][6]
+[![PyPI-Status][1]][2] [![PyPI-Versions][3]][2] [![PyPi-License][4]][2] [![PyPI-Downloads][5]][2]
 
 [![Build-Status][7]][8] [![Coverage-Status][9]][10]
 
-One-Glance Overview of any Video 🎞👁🎞
+[![videogestalt-logo][6]
+
+One-Glance Overview of Any Video
 
 [![Example video gestalt: Vespa-Scooter-Commercial][11]][12]
 
@@ -95,9 +97,9 @@ Licensed under the Mozilla Public License 2.0
 [1]: https://img.shields.io/pypi/v/videogestalt.svg
 [2]: https://pypi.org/project/videogestalt
 [3]: https://img.shields.io/pypi/pyversions/videogestalt.svg?logo=python&logoColor=white
-[4]: https://pypi.org/project/videogestalt
+[4]: https://img.shields.io/pypi/l/videogestalt.svg
 [5]: https://img.shields.io/pypi/dm/videogestalt.svg?label=pypi%20downloads&logo=python&logoColor=white
-[6]: https://pypi.org/project/videogestalt
+[6]: https://raw.githubusercontent.com/eobrain/videogestalt/main/resources/videogestalt_logo.png
 [7]: https://github.com/eobrain/videogestalt/actions/workflows/ci-build.yml/badge.svg?event=push
 [8]: https://github.com/eobrain/videogestalt/actions/workflows/ci-build.yml
 [9]: https://codecov.io/github/eobrain/videogestalt/coverage.svg?branch=master
