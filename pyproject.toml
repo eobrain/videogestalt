@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 [project]  # beware if using setuptools: setup.py still gets executed, and even if pyproject.toml fields take precedence, if there is any code error in setup.py, building will fail!
 name = "videogestalt"
 version = "0.2.7"  # see PEP 440 https://peps.python.org/pep-0440/#pre-releases and https://packaging.python.org/en/latest/guides/single-sourcing-package-version/
-description = "One-Glance Overview of any Video 🎞👁🎞"
+description = "One-Glance Overview of Any Video"
 authors = [
     {name = "Eamonn O'Brien-Strain", email = "eobrain@proton.me"},
     ]
