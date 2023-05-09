@@ -1,4 +1,4 @@
-[![videogestalt-logo][6]
+![videogestalt-logo][6]
 # Video Gestalt
 
 [![PyPI-Status][1]][2] [![PyPI-Versions][3]][2] [![PyPi-License][4]][2] [![PyPI-Downloads][5]][2]
