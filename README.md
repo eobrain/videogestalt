@@ -87,6 +87,24 @@ It can also be installed in development/editable mode after cloning this git rep
 pip install --upgrade -e .
 ```
 
+## Known issues
+
+There are a few known issues, due to the fact that moviepy, the library that we use to process videos, is [currently not actively maintained as of August 2023](https://github.com/Zulko/moviepy/issues/1874). Here is a list of downstream issues:
+* PILLOW 10.0.0 introduced a breaking change with moviepy, and although [a fix](https://github.com/Zulko/moviepy/pull/2003) was merged upstream into moviepy, there is no pypi release. Two solutions: cap PILLOW below 10, or install moviepy from github. Since the future of moviepy is uncertain, we chose to cap PILLOW, to ensure this tool continues to work in venvs.
+* On Windows, after saving the output, the following exception may arise:
+```
+Exception ignored in: <function FFMPEG_VideoReader.__del__ at 0x00000253011BF920>
+Traceback (most recent call last):
+  File "C:\Users\33632\miniconda3\Lib\site-packages\moviepy\video\io\ffmpeg_reader.py", line 199, in __del__
+    self.close()
+  File "C:\Users\33632\miniconda3\Lib\site-packages\moviepy\video\io\ffmpeg_reader.py", line 190, in close
+    self.proc.terminate()
+  File "C:\Users\33632\miniconda3\Lib\subprocess.py", line 1671, in terminate
+    _winapi.TerminateProcess(self._handle, 1)
+OSError: [WinError 6] Descripteur non valide
+```
+Again this was [fixed](https://github.com/Zulko/moviepy/pull/1296) on github but not in the latest pypi release of MoviePy. This remain unfixed, it does not prevent usage of the tool, it is just inelegant.
+
 ## License
 
 Created by Eamonn O'Brien-Strain.
