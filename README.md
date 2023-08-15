@@ -89,7 +89,7 @@ pip install --upgrade -e .
 
 ## Known issues
 
-There are a few known issues, due to the fact that moviepy, the library that we use to process videos, is [currently not actively maintained as of August 2023](https://github.com/Zulko/moviepy/issues/1874). Here is a list of downstream issues:
+There are a few known issues, due to the fact that moviepy, the library that we use to process videos, is [currently not actively maintained as of August 2023 since at least December 2022](https://github.com/Zulko/moviepy/issues/1874). Here is a list of downstream issues:
 * PILLOW 10.0.0 introduced a breaking change with moviepy, and although [a fix](https://github.com/Zulko/moviepy/pull/2003) was merged upstream into moviepy, there is no pypi release. Two solutions: cap PILLOW below 10, or install moviepy from github. Since the future of moviepy is uncertain, we chose to cap PILLOW, to ensure this tool continues to work in venvs.
 * On Windows, after saving the output, the following exception may arise:
 ```
